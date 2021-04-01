@@ -1,0 +1,37 @@
+name: anifinder
+description: A animal classification application based on deep classificaton model.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  image_picker: 0.7.4
+  image_cropper: 1.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: AkayaKanadaka
+      fonts:
+        - asset: fonts\AkayaKanadaka-Regular.ttf
+
+    - family: RobotoSlab
+      fonts:
+        - asset: fonts\RobotoSlab-Regular.ttf
+
+    - family: TimesNewRoman
+      fonts:
+        - asset: fonts\TimesNewRoman-Regular.ttf
