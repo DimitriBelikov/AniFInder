@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 
 final double borderradius = 12.0;
 final Color kackgroundcolor = Color(0xE61D1D1D);
-String animalInfo =
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500sLorem Ipsum is simply " +
-        "dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard " +
-        "dummy text ever since the 1500s,";
 
 final headerStyle = TextStyle(
   fontFamily: 'AkayaKanadaka',

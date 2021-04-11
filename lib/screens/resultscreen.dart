@@ -1,8 +1,39 @@
+import 'dart:io';
+
 import 'package:anifinder/constants.dart';
+import 'package:anifinder/modelfunctions.dart';
 import 'package:anifinder/reusablewidget.dart';
 import 'package:flutter/material.dart';
 
-class ResultScreen extends StatelessWidget {
+class ResultArguments {
+  List result;
+  File image;
+  ResultArguments(this.result, this.image);
+}
+
+class ResultScreen extends StatefulWidget {
+  static String resultScreenRoute = '/results';
+  ModelLabels modelLabel = ModelLabels();
+
+  late List _resultData;
+  late File _image;
+  late String _species, _speciesInfo;
+
+  ResultScreen(List resultData, File image) {
+    _resultData = resultData;
+    _image = image;
+    _species = _resultData[0]['label'].toUpperCase();
+    _speciesInfo = modelLabel.getAnimalInfo(_species);
+    print(_speciesInfo);
+  }
+
+  @override
+  _ResultScreenState createState() => _ResultScreenState();
+}
+
+class _ResultScreenState extends State<ResultScreen> {
+  bool _isLoading = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +74,7 @@ class ResultScreen extends StatelessWidget {
             child: Padding(
                 padding: EdgeInsets.all(10.0),
                 child: ReusableText(
-                    displayText: 'Animal Species',
+                    displayText: widget._species,
                     textStyle: kextStyleheader,
                     alignment: TextAlign.center)),
             margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 50.0),
@@ -53,11 +84,11 @@ class ResultScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 4,
             child: Container(
-              child: Image.asset('sample.jpg'),
+              child: Image.file(widget._image),
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 35.0),
-              height: 100.0,
+              height: 70.0,
             ),
           ),
           Container(
@@ -68,9 +99,10 @@ class ResultScreen extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
           ),
           Expanded(
+            flex: 2,
             child: SingleChildScrollView(
               child: ReusableText(
-                  displayText: animalInfo,
+                  displayText: widget._speciesInfo,
                   textStyle: kextStyleInfo,
                   alignment: TextAlign.justify),
               scrollDirection: Axis.vertical,

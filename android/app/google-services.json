@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "366787943169",
+    "project_id": "anifinder-fd80c",
+    "storage_bucket": "anifinder-fd80c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366787943169:android:dc69c104b88eaebf051900",
+        "android_client_info": {
+          "package_name": "com.urmilchandarana.anifinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366787943169-e2fq0s99gpnvsn0uspa0439m517870dq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9q-RTVFt9T_9RFgG_kzKeYCYi2QSbBFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366787943169-e2fq0s99gpnvsn0uspa0439m517870dq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
