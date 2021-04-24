@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-final double borderradius = 12.0;
-final Color kackgroundcolor = Color(0xE61D1D1D);
+const double borderradius = 12.0;
+const Color kackgroundcolor = Color(0xE61D1D1D);
 
-final headerStyle = TextStyle(
+const headerStyle = TextStyle(
   fontFamily: 'AkayaKanadaka',
   fontSize: 31,
   color: Colors.white,
@@ -21,19 +21,19 @@ final ButtonStyle kuttonStyle = ElevatedButton.styleFrom(
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderradius)),
 );
 
-final TextStyle kextStyleheader = TextStyle(
+const TextStyle kextStyleheader = TextStyle(
   fontSize: 24.0,
   color: Colors.white,
   fontFamily: 'TimesNewRoman',
 );
 
-final TextStyle kextStyledata = TextStyle(
+const TextStyle kextStyledata = TextStyle(
   fontSize: 24,
   color: Colors.yellow,
   fontFamily: 'TimesNewRoman',
 );
 
-final TextStyle kextStyleInfo = TextStyle(
+const TextStyle kextStyleInfo = TextStyle(
   fontSize: 19,
   color: Colors.yellow,
   fontFamily: 'TimesNewRoman',

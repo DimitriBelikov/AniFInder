@@ -42,9 +42,10 @@ Future runModel(File image) async {
       path: image.path,
       imageMean: 127.5,
       imageStd: 127.5,
-      threshold: 0.1,
+      threshold: 0.25,
       numResults: 10,
       asynch: false);
+  print(output);
   return output;
 }
 

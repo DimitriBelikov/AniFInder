@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:anifinder/constants.dart';
 import 'package:anifinder/modelfunctions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -11,20 +12,21 @@ import 'resultscreen.dart';
 
 class HomePage extends StatefulWidget {
   static String homePageRoute = '/';
+  File _image = File('');
+  bool _isLoading = false;
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  File _image = File('');
-  bool _isLoading = false;
+  Future pickImage(ImageSource imgSource) async {
+    return await ImagePicker().getImage(source: imgSource);
+  }
 
-  Future pickCropclassify(ImageSource imgSource) async {
-    final pickedImage = await ImagePicker().getImage(source: imgSource);
-
+  Future cropImage(PickedFile pickedImage) async {
     final croppedImage = await ImageCropper.cropImage(
-      sourcePath: pickedImage!.path,
+      sourcePath: pickedImage.path,
       androidUiSettings: AndroidUiSettings(
         backgroundColor: kackgroundcolor,
         toolbarColor: Colors.grey.shade800,
@@ -33,36 +35,43 @@ class _HomePageState extends State<HomePage> {
         lockAspectRatio: false,
       ),
     );
+    return croppedImage;
+  }
+
+  Future classifyImage(ImageSource imgSource) async {
+    var pickedImage = await pickImage(imgSource);
+    var croppedImage = await cropImage(pickedImage);
     setState(() {
-      _image = File(croppedImage!.path);
-      _isLoading = true;
+      widget._image = File(croppedImage!.path);
+      widget._isLoading = true;
     });
-    sleep(Duration(seconds: 2));
-    return runModel(_image);
+    //sleep(Duration(seconds: 1));
+    return runModel(widget._image);
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+  onPressedFunction(ImageSource imgSource) async {
+    var _result = await classifyImage(imgSource);
+    Future.delayed(Duration(seconds: 4), () {
+      Navigator.pushReplacementNamed(
+        context,
+        ResultScreen.resultScreenRoute,
+        arguments: ResultArguments(_result, widget._image),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading == true
-        ? SpinKitFadingCube(
+    print('Building Homepage');
+    return widget._isLoading == true
+        ? const SpinKitFadingCube(
             color: Colors.tealAccent,
             size: 70.0,
-            //duration: Duration(seconds: 10),
           )
         : Scaffold(
             appBar: AppBar(
               title: Center(
-                child: Text(
+                child: const Text(
                   'AniFinder',
                   style: headerStyle,
                   textAlign: TextAlign.center,
@@ -77,15 +86,8 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton(
                     child: Text('Select Image From Gallery'),
                     style: kuttonStyle,
-                    onPressed: () async {
-                      var _result = await pickCropclassify(ImageSource.gallery);
-                      Future.delayed(Duration(seconds: 5), () {
-                        Navigator.pushNamed(
-                          context,
-                          ResultScreen.resultScreenRoute,
-                          arguments: ResultArguments(_result, _image),
-                        );
-                      });
+                    onPressed: () {
+                      onPressedFunction(ImageSource.gallery);
                     },
                   ),
                   SizedBox(
@@ -94,15 +96,8 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton(
                     child: Text('Click Image From Camera'),
                     style: kuttonStyle,
-                    onPressed: () async {
-                      var _result = await pickCropclassify(ImageSource.camera);
-                      Future.delayed(Duration(seconds: 5), () {
-                        Navigator.pushNamed(
-                          context,
-                          ResultScreen.resultScreenRoute,
-                          arguments: ResultArguments(_result, _image),
-                        );
-                      });
+                    onPressed: () {
+                      onPressedFunction(ImageSource.camera);
                     },
                   ),
                 ],

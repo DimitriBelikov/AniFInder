@@ -26,6 +26,7 @@ class AniFinder extends StatelessWidget {
           );
         }
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }
